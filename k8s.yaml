@@ -11,7 +11,7 @@ spec:
   selector:
     app: push
 ---
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: push
@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: push
-          image: 127.0.0.1:5000/push:0.0.1
+          image: fish.co:8001/push:0.0.1
           imagePullPolicy: IfNotPresent
           args:
             ["server"]

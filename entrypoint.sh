@@ -1,8 +1,8 @@
 #!/bin/sh
-if [ "$1" = 'server' ]; then
+
+if [ "$1" != 'client' -a "$1" != 'server' ]; then
    echo "sorry, '$1' is not a command"
    exit 1
-else if [ "$1" = 'update-content' ]
 fi
-exec node $1
 
+exec node $1

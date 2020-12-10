@@ -1,6 +1,6 @@
 NAME=push
 VERSION=$(shell cat package.json | grep version | head -1 | sed 's/.*: "\([^"]*\)".*/\1/')
-REGISTRY_PREFIX=fish.co/
+REGISTRY_PREFIX=fish.co:8001/
 
 # .PHONY: build publish version
 

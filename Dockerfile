@@ -9,6 +9,9 @@ WORKDIR /home/www/push
 
 COPY package.json entrypoint.sh ./
 
+RUN npm config set registry https://registry.npm.taobao.org \
+    && npm install
+
 COPY . .
 
 RUN chmod +x ./entrypoint.sh \
