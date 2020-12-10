@@ -95,3 +95,4 @@ async function checkTask() {
 }
 
 bot.listen(5701)
+console.log('qqbot start in 5701')
