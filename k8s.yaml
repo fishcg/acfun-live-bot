@@ -1,0 +1,151 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-web-server
+spec:
+  type: NodePort
+  ports:
+    - name: web
+      port: 8989
+      targetPort: 8989
+  selector:
+    app: node-web
+---
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: node-web
+spec:
+  selector:
+    matchLabels:
+      app: node-web
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: node-web
+    spec:
+      containers:
+        - name: node-web
+          image: 127.0.0.1:5000/node-web:1.0.0
+          imagePullPolicy: IfNotPresent
+          args:
+            ["servers"]
+          volumeMounts:
+            - name: config
+              mountPath: /home/www/node-web/app/config.js
+              subPath: config.js
+          ports:
+            - containerPort: 8989
+          env:
+            - name: TZ
+              value: 'Asia/Shanghai'
+      volumes:
+        - name: config
+          configMap:
+            name: node-web-cfg
+            items:
+              - key: config.js
+                path: config.js
+---
+piVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: node-web-cron
+spec:
+  concurrencyPolicy: Forbid #Allow 允许job并发执行，Forbid只允许当前这个执行，Replace取消当前这个，而执行新的
+  # 00:01 every day
+  # schedule: "59 15 * * *"
+  # run per 30 minute
+  schedule: "*/30 * * * *"
+  startingDeadlineSeconds: 300  # 300秒没有启动成功，就不再启动
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          # ttlSecondsAfterFinished: 100 # 任务完成后的 10 s 之后自动删除 pod，k8s 1.12 以后才有
+          restartPolicy: OnFailure
+          backoffLimit: 4  # 最大允许失败的次数
+          containers:
+            - name: node-web-cron
+              image: fish.co/node-web:1.0.0
+              imagePullPolicy: IfNotPresent
+              args:
+                - ["cron"]
+              env:
+                - name: TZ
+                  value: 'Asia/Shanghai'
+              volumeMounts:
+                - name: config
+                  mountPath: /home/www/node-web/app/config.js
+                  subPath: config.js
+                - name: py-config
+                    mountPath: /home/www/node-web/script/python/config.py
+                    subPath: config.py
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "2"
+          volumes:
+            - name: node-web-cfg
+              configMap:
+                name: node-web-cfg
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: node-web-cfg
+  labels:
+    app: node-web
+data:
+  config.js: |
+    const path  = require('path');
+
+    // 路径配置
+    const root = path.join(__dirname, '../')
+    const app = path.join(root, 'app')
+    const fish = path.join(root, 'fish')
+
+    exports.path = {
+      root: root,
+      app: app,
+      fish: fish,
+    }
+    // mysql 配置
+    exports.mysql = {
+      host     : '127.0.0.1',
+      user     : 'xxxx',
+      password : '********',
+      port: '3306',
+      database: 'xxxx',
+    }
+
+    // 邮件配置
+    exports.email = {
+      service: 'QQ',
+      user: 'xxxx@xxx.com',
+      password: '********',
+    }
+
+    // OSS 配置
+    exports.aliyun = {
+      oss: {
+        region: 'oss-cn-hangzhou',
+        internal: false,
+        secure: false,
+        bucket: 'acgay',
+        timeout: 300000,
+        accessKeyId: '********',
+        accessKeySecret: '*************',
+      },
+    }
+  config.py: |
+    # -*- coding: utf-8 -*-
+
+    mysql = {
+      'host'     : '127.0.0.1',
+      'user'     : '*****',
+      'password' : '*****',
+      'port': '3306',
+      'database': '*****',
+    }
