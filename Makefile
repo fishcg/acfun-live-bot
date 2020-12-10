@@ -1,6 +1,6 @@
-NAME=node-web
+NAME=push
 VERSION=$(shell cat package.json | grep version | head -1 | sed 's/.*: "\([^"]*\)".*/\1/')
-# REGISTRY_PREFIX=$(if $(REGISTRY),$(addsuffix /, $(REGISTRY)))
+REGISTRY_PREFIX=fish.co/
 
 # .PHONY: build publish version
 
