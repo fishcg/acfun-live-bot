@@ -40,6 +40,8 @@
     "ramda": "^0.25.0",
     "superagent": "^4.0.0-beta.5",
     "sync-request": "^6.0.0",
-    "urlencode": "^1.1.0"
+    "urlencode": "^1.1.0",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.0"
   }
 }
