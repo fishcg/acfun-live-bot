@@ -31,16 +31,47 @@ spec:
           imagePullPolicy: IfNotPresent
           args:
             ["server"]
-          # volumeMounts:
-          #  - name: config
-          #    mountPath: /home/www/push/config.js
-          #    subPath: config.js
+          volumeMounts:
+          - name: config
+            mountPath: /home/www/push/config.js
+            subPath: config.js
           ports:
             - containerPort: 5701
           env:
             - name: TZ
               value: 'Asia/Shanghai'
-      #volumes:
-      #  - name: config
-      #    configMap:
-      #      name: node-web-cfg
+      dnsPolicy: Default
+      volumes:
+      - name: config
+        configMap:
+          name: push-cfg
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: push-cfg
+  labels:
+    app: push
+data:
+  config.js: |
+    exports.ups = [
+      {
+        'type': 1,
+        'userID': 7005405,
+        'username': '海猫umi',
+        'groupQQ': 1109738985,
+      },
+      {
+        'type': 1,
+        'userID': 36782454,
+        'username': '可可啦',
+        'groupQQ': 577202845,
+      },
+      {
+        'type': 2,
+        'userID': 5339362,
+        'liveRoomID': 5339362,
+        'username': '女宅',
+        'groupQQ': 1577034,
+      },
+    ]

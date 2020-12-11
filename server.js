@@ -74,10 +74,10 @@ bot.on('message',async context => {
     })
   }
   if (context.message_type === QQ_MESSAGE_TYPE_PRIVATE && context.message === '233') {
-    console.log('test' . context.message)
+    console.log('test' + context.message)
     let message = `success`
-    bot('send_group_msg', {
-      group_id: context.sender.user_id,
+    bot('send_msg', {
+      ...context,
       message: message,
     })
   }
