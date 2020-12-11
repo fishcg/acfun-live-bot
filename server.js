@@ -64,15 +64,15 @@ bot.on('message',async context => {
       group_id: groupQQ,
       message: message,
     })
-  }
-  if (isAtMe(context.message)) {
+  } else if (isAtMe(context.message)) {
     let groupQQ = context.group_id
     let message = `不要打扰我工作啦~`
     bot('send_group_msg', {
       group_id: groupQQ,
       message: message,
     })
-  } else if (context.message_type === QQ_MESSAGE_TYPE_PRIVATE && context.message === '233') {
+  }
+  if (context.message_type === QQ_MESSAGE_TYPE_PRIVATE && context.message === '233') {
     console.log('test' + context.message)
     let message = `success`
     bot('send_msg', {
