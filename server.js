@@ -45,7 +45,7 @@ bot.on('message',async context => {
       } else if (userinfo.liveId === undefined) {
         message = '当前未直播，晚点再来看看吧~'
       } else {
-        message = `正在回放中，点击进入直播间：https://live.acfun.cn/live/${up.userID}`
+        message = `正在放送中，点击进入直播间：https://live.acfun.cn/live/${up.userID}`
       }
     } else {
       // 检测 B站主播开播状态
@@ -72,8 +72,7 @@ bot.on('message',async context => {
       group_id: groupQQ,
       message: message,
     })
-  }
-  if (context.message_type === QQ_MESSAGE_TYPE_PRIVATE && context.message === '233') {
+  } else if (context.message_type === QQ_MESSAGE_TYPE_PRIVATE && context.message === '233') {
     console.log('test' + context.message)
     let message = `success`
     bot('send_msg', {
