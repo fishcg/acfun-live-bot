@@ -1,6 +1,7 @@
 const CQHttp = require('cqhttp')
 const Acfun = require('./lib/Acfun')
 const Bilibili = require('./lib/Bilibili')
+const Tulin = require('./lib/Tulin')
 const { findIndexByAttr, timingTask } = require('./lib/Utils')
 const nedb = require('./lib/NedbConnection')
 
@@ -66,10 +67,14 @@ bot.on('message',async context => {
     })
   } else if (isAtMe(context.message)) {
     let groupQQ = context.group_id
-    let message = `不要打扰我工作啦~`
+    let message = context.message.replace(`[CQ:at,qq=${QQ}] `, '')
+    let replay = await Tulin.getReply(message)
+    if (replay === null) {
+      replay = '不要打扰我工作啦~'
+    }
     bot('send_group_msg', {
       group_id: groupQQ,
-      message: message,
+      message: replay,
     })
   }
   if (context.message_type === QQ_MESSAGE_TYPE_PRIVATE && context.message === '233') {

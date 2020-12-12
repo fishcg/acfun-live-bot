@@ -19,3 +19,7 @@ exports.ups = [
     'groupQQ': 1577034,
   },
 ]
+exports.Tulin = {
+  'apiKey': "",
+  'userId': "",
+}
