@@ -5,12 +5,12 @@ const Tulin = require('./lib/Tulin')
 const { findIndexByAttr, timingTask } = require('./lib/Utils')
 const nedb = require('./lib/NedbConnection')
 
-let { ups } = require('./config')
+let { ups, qqSerice } = require('./config')
 
 // 文档地址：https://github.com/cqmoe/cqhttp-node-sdk
-
+console.log(`qq service is ${qqSerice}`)
 const bot = new CQHttp({
-  apiRoot: 'http://10.96.152.125:5700/',  // TODO: 待配置
+  apiRoot: qqSerice,  // TODO: 待配置
 })
 
 const QQ = 3431290005  // self

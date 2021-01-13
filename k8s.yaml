@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: push
-          image: fish.co:8001/push:0.0.1
+          image: fish.co:5000/push:0.0.1
           imagePullPolicy: IfNotPresent
           args:
             ["server"]

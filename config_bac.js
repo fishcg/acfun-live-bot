@@ -23,3 +23,4 @@ exports.Tulin = {
   'apiKey': "",
   'userId': "",
 }
+exports.qqSerice = 'http://127.0.0.1:5700/'
