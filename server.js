@@ -5,11 +5,10 @@ const Bilibili = require('./lib/Bilibili')
 const Tulin = require('./lib/Tulin')
 const { findIndexByAttr, timingTask, now } = require('./lib/Utils')
 const nedb = require('./lib/NedbConnection')
-
 const logger = require('./lib/Logger')
-let { ups, qqSerice } = require('./config')
-let { recordLive } = require('./component/AcfunLive')
-const oss = require('./OSS')
+const { ups, qqSerice } = require('./config')
+const { recordLive } = require('./component/AcfunLive')
+const oss = require('./component/OSS')
 
 // 文档地址：https://github.com/cqmoe/cqhttp-node-sdk
 console.log(`qq service is ${qqSerice}`)
@@ -40,7 +39,7 @@ bot.on('message',async context => {
     if (!replay) {
       return
     }
-    bot.send('send_group_msg', {
+    bot('send_group_msg', {
       group_id: groupQQ,
       message: replay,
     })
@@ -123,7 +122,7 @@ async function getReplay(context) {
         await liveRecord.updatePath(recordID, remoteFilename)
         logger.info(`acfun 录播完成，录播直播间：${roomID}，文件地址：${remoteFilename}`)
         let fileUrl = oss.getFileUrl(remoteFilename)
-        bot.send('send_group_msg', {
+        bot('send_group_msg', {
           group_id: groupQQ,
           message: `💐💐💐直播录播完成，录播下载地址：\n${fileUrl}`,
         })
