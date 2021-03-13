@@ -1,4 +1,4 @@
-const baseModel = require('./baseModel')
+const baseModel = require('./BaseModel')
 const Utils = require('../lib/Utils')
 
 // 状态，-1： 失败，0：录播中，1：录播完成

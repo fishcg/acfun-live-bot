@@ -5,7 +5,7 @@ const Bilibili = require('./lib/Bilibili')
 const Tulin = require('./lib/Tulin')
 const { findIndexByAttr, timingTask, now } = require('./lib/Utils')
 const nedb = require('./lib/NedbConnection')
-const liveRecord = require('./models/liveRecord')
+const liveRecord = require('./models/LiveRecord')
 const logger = require('./lib/Logger')
 let { ups, qqSerice } = require('./config')
 const { recordLive } = require('./component/AcfunLive')
@@ -69,7 +69,7 @@ async function getReplay(context) {
     roomID = up.userID
     if (message === 'help') {
       return getHelp()
-    } if (message.substring(0, 5) === '获取录播 ') {
+    } if (message.substring(0, 4) === '获取录播') {
       let day = message.substring(5, 16)
       if (!day) {
         return "获取录播指令错误\n" + getHelp()
@@ -98,7 +98,7 @@ async function getReplay(context) {
         return '当前未直播，晚点再来看看吧~'
       }
       return `正在放送中，点击进入直播间：https://live.acfun.cn/live/${roomID}`
-    } else if (message.substring(0, 5) === '开始录播 ') {
+    } else if (message.substring(0, 4) === '开始录播') {
       let qualityParam = message.substring(5, 7)
       let quality = LIVE_QUALITY.indexOf(qualityParam)
       if (qualityParam && quality === -1) {

@@ -140,7 +140,7 @@ async function recordLive(roomId, quality, callback) {
     }
     // 删除本地文件
     fs.unlink(filename, () => {
-      console.log('文件已删除')
+      logger.error(`文件已删除（${roomId}）：${filename}`)
     })
     // 数据入库
     callback(roomId, remoteFilename)
