@@ -5,7 +5,7 @@ const Bilibili = require('./lib/Bilibili')
 const Tulin = require('./lib/Tulin')
 const { findIndexByAttr, timingTask, now } = require('./lib/Utils')
 const nedb = require('./lib/NedbConnection')
-
+const liveRecord = require('./models/liveRecord')
 const logger = require('./lib/Logger')
 let { ups, qqSerice } = require('./config')
 const { recordLive } = require('./component/AcfunLive')
