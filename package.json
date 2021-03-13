@@ -1,6 +1,6 @@
 {
   "name": "qqbot",
-  "version": "0.0.1",
+  "version": "0.0.6",
   "description": "node tools",
   "main": "gulpfile.js",
   "scripts": {
