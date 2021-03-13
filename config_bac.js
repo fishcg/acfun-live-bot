@@ -23,4 +23,17 @@ exports.Tulin = {
   'apiKey': "",
   'userId': "",
 }
+
 exports.qqSerice = 'http://127.0.0.1:5700/'
+
+exports.mysql = {
+  host     : '127.0.0.1',
+  user     : 'root',
+  password : 'root',
+  port: '3306',
+  database: 'test',
+}
+
+exports.paths = {
+  acfunLive: './.runtime/acfunLive/',
+}

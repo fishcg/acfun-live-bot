@@ -27,14 +27,14 @@ spec:
     spec:
       containers:
         - name: push
-          image: fish.co:5000/push:0.0.1
+          image: fish.co:5000/push:0.0.2
           imagePullPolicy: IfNotPresent
           args:
             ["server"]
           volumeMounts:
-          - name: config
-            mountPath: /home/www/push/config.js
-            subPath: config.js
+            - name: config
+              mountPath: /home/www/push/config.js
+              subPath: config.js
           ports:
             - containerPort: 5701
           env:
@@ -42,9 +42,9 @@ spec:
               value: 'Asia/Shanghai'
       dnsPolicy: Default
       volumes:
-      - name: config
-        configMap:
-          name: push-cfg
+        - name: config
+          configMap:
+            name: push-cfg
 ---
 kind: ConfigMap
 apiVersion: v1
@@ -74,4 +74,39 @@ data:
         'username': '女宅',
         'groupQQ': 1577034,
       },
+      {
+        'type': 1,
+        'userID': 36782454,
+        'username': 'test',
+        'groupQQ': 615581093,
+      },
+      {
+        'type': 1,
+        'userID': 41254970,
+        'username': '鱼宝',
+        'groupQQ': 984747668,
+      },
+      {
+        'type': 1,
+        'userID': 34195163,
+        'username': '王晴心',
+        'groupQQ': 217975424,
+      },
+      {
+        'type': 1,
+        'userID': 34195163,
+        'username': '弥弥兔',
+        'groupQQ': 36782183,
+      },
+      {
+        'type': 1,
+        'userID': 38393515,
+        'username': '子中中',
+        'groupQQ': 216264878,
+      },
     ]
+    exports.Tulin = {
+      'apiKey': "6508f5d6b9fa4ea6bf328169167d62b8",
+      'userId': "360162",
+    }
+    exports.qqSerice = 'http://10.97.19.249:5700/'
