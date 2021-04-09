@@ -105,7 +105,16 @@ async function getLiveUrl(roomId, quality = 1) {
     return LIVE_STATUS_OFFLINE
   }
   const videoPlayRes = JSON.parse(playerRes.data.videoPlayRes)
-  return videoPlayRes.liveAdaptiveManifest[0].adaptationSet.representation[quality].url
+  let urls = videoPlayRes.liveAdaptiveManifest[0].adaptationSet.representation
+  let urlLength = urls.length
+  if (urlLength === 0) {
+    return LIVE_STATUS_ERROR
+  }
+  // 获取指定质量下最高音质
+  if (quality > urlLength - 1) {
+    quality = urlLength - 1
+  }
+  return urls[quality].url
 }
 
 /*
@@ -127,8 +136,8 @@ async function recordLive(roomId, quality, callback) {
   let filename = `${dir}${roomId}_${time}.flv`
   let remoteFilename = `acfunlive/${dateDir}${roomId}_${time}.flv`
   let liveFileUrl = await getLiveUrl(roomId, quality)
-  if (liveFileUrl === LIVE_STATUS_OFFLINE) {
-    return LIVE_STATUS_OFFLINE
+  if (liveFileUrl === LIVE_STATUS_OFFLINE || liveFileUrl === LIVE_STATUS_ERROR) {
+    return liveFileUrl
   }
   downloadFile(liveFileUrl, filename, async function () {
     // 文件下载完后

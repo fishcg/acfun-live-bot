@@ -128,8 +128,11 @@ async function getReplay(context) {
           message: `💐💐💐直播录播完成，录播下载地址：\n${fileUrl}`,
         })
       })
-      if (status !== 1) {
+      if (status === 0) {
         return '当前未直播，晚点再来看看吧~'
+      }
+      if (status === -1) {
+        return '[ERROR]录播出错，请及时治疗'
       }
       return '📼宝宝开始干活了，嘿咻~录播开始...'
     }
@@ -218,7 +221,7 @@ async function acLiveCheck(userID, groupQQ) {
     await nedb.updateASync({ docType: 'LIVE_ROOM', userID: userID }, { $set: { status: liveStatus } })
     // 发送消息
     let message = liveStatus === 1
-      ? `[CQ:at,qq=all]  \n【开播提醒】\n ${userinfo.name}开播啦，快去观看直播吧~~\n点击进入直播间：https://live.acfun.cn/live/${userID}`
+      ? `【开播提醒】 [CQ:at,qq=all]  \n ${userinfo.name}开播啦，快去观看直播吧~~\n点击进入直播间：https://live.acfun.cn/live/${userID}`
       : `本次直播已结束，感谢大家观看~`
     bot('send_group_msg', {
       group_id: groupQQ,
