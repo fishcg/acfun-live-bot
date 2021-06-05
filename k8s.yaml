@@ -5,9 +5,9 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - name: web
-      port: 5701
-      targetPort: 5701
+  - name: web
+    port: 5701
+    targetPort: 5701
   selector:
     app: push
 ---
@@ -26,25 +26,25 @@ spec:
         app: push
     spec:
       containers:
-        - name: push
-          image: fish.co:5000/push:0.0.2
-          imagePullPolicy: IfNotPresent
-          args:
-            ["server"]
-          volumeMounts:
-            - name: config
-              mountPath: /home/www/push/config.js
-              subPath: config.js
-          ports:
-            - containerPort: 5701
-          env:
-            - name: TZ
-              value: 'Asia/Shanghai'
+      - name: push
+        image: fish.co:5000/push:0.1.2-4
+        imagePullPolicy: IfNotPresent
+        args:
+          ["server"]
+        volumeMounts:
+        - name: config
+          mountPath: /home/www/push/config.js
+          subPath: config.js
+        ports:
+        - containerPort: 5701
+        env:
+        - name: TZ
+          value: 'Asia/Shanghai'
       dnsPolicy: Default
       volumes:
-        - name: config
-          configMap:
-            name: push-cfg
+      - name: config
+        configMap:
+          name: push-cfg
 ---
 kind: ConfigMap
 apiVersion: v1
@@ -54,59 +54,39 @@ metadata:
     app: push
 data:
   config.js: |
-    exports.ups = [
-      {
-        'type': 1,
-        'userID': 7005405,
-        'username': '海猫umi',
-        'groupQQ': 1109738985,
-      },
-      {
-        'type': 1,
-        'userID': 36782454,
-        'username': '可可啦',
-        'groupQQ': 577202845,
-      },
-      {
-        'type': 2,
-        'userID': 5339362,
-        'liveRoomID': 5339362,
-        'username': '女宅',
-        'groupQQ': 1577034,
-      },
-      {
-        'type': 1,
-        'userID': 36782454,
-        'username': 'test',
-        'groupQQ': 615581093,
-      },
-      {
-        'type': 1,
-        'userID': 41254970,
-        'username': '鱼宝',
-        'groupQQ': 984747668,
-      },
-      {
-        'type': 1,
-        'userID': 34195163,
-        'username': '王晴心',
-        'groupQQ': 217975424,
-      },
-      {
-        'type': 1,
-        'userID': 34195163,
-        'username': '弥弥兔',
-        'groupQQ': 36782183,
-      },
-      {
-        'type': 1,
-        'userID': 38393515,
-        'username': '子中中',
-        'groupQQ': 216264878,
-      },
-    ]
     exports.Tulin = {
-      'apiKey': "6508f5d6b9fa4ea6bf328169167d62b8",
-      'userId': "360162",
+      'apiKey': "xxxxx",
+      'userId': "xxxxxx",
     }
     exports.qqSerice = 'http://10.97.19.249:5700/'
+    exports.mysql = {
+      host     : '127.0.0.1',
+      user     : 'test',
+      password : 'test',
+      port: '3306',
+      database: 'music',
+    }
+    exports.paths = {
+      acfunLive: './.runtime/acfunLive/',
+    }
+    exports.aliyun = {
+      oss: {
+        publicUrl: 'http://s1.acgay.cn/',
+        region: 'oss-cn-hangzhou',
+        internal: false,
+        secure: false,
+        bucket: 'acgay',
+        timeout: 3600000,
+        accessKeyId: 'test',
+        accessKeySecret: 'test',
+      },
+    }
+    exports.qqBot = {
+      url: 'http://127.0.0.1:5700/',
+      botQQ: 123456,
+    }
+    exports.acfun = {
+      cookie: 'acfun cookie',
+      liveDid: 'acfun cookie did',
+    }
+

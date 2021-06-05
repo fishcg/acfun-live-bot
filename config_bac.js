@@ -1,30 +1,18 @@
-exports.ups = [
-  {
-    'type': 1,
-    'userID': 7005405,
-    'username': '海猫umi',
-    'groupQQ': 1109738985,
-  },
-  {
-    'type': 1,
-    'userID': 36782454,
-    'username': '可可啦',
-    'groupQQ': 577202845,
-  },
-  {
-    'type': 2,
-    'userID': 5339362,
-    'liveRoomID': 5339362,
-    'username': '女宅',
-    'groupQQ': 1577034,
-  },
-]
 exports.Tulin = {
   'apiKey': "",
   'userId': "",
 }
 
-exports.qqSerice = 'http://127.0.0.1:5700/'
+exports.qqBot = {
+  url: 'http://127.0.0.1:5700/',
+  botQQ: 123456,
+}
+
+// TODO: 之后应自动获取而非配置
+exports.acfun = {
+  cookie: 'acfun cookie',
+  liveDid: 'acfun cookie did',
+}
 
 exports.mysql = {
   host     : '127.0.0.1',

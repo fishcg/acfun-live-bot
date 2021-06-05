@@ -9,6 +9,20 @@ const STATUS_SUCCESS = 1
 // 直播类型
 const LIVE_TYPE_ACFUN = 1 // acfun
 
+/*
+CREATE TABLE `lab_live_record` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `live_type` tinyint NOT NULL DEFAULT '0' COMMENT '直播类型，1：acfun',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '直播间标题',
+  `room_id` int NOT NULL COMMENT '直播间 ID',
+  `path` varchar(125) NOT NULL DEFAULT '' COMMENT '网络地址',
+  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态，-1： 失败，0：录播中，1：录播完成',
+  `quality` tinyint NOT NULL DEFAULT '1' COMMENT '视频质量，0：高清，1：超清；2：蓝光 4M，3：蓝光 8M',
+  `create_time` int NOT NULL COMMENT '创建时间',
+  `modified_time` int NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8;
+*/
 class LiveRecord extends baseModel.model {
   getTable() {
     return 'lab_live_record'
