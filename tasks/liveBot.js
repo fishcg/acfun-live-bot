@@ -34,7 +34,7 @@ async function getLives() {
     }
     livesCache = {
       ups: ups,
-      expireTime: now + 60, // 缓存 60s
+      expireTime: now + 30, // 缓存 30s
     }
   }
   return livesCache
@@ -77,7 +77,7 @@ async function getReplay(context) {
   let up = lives.ups[index]
   let message = context.message
   if (up.type === LIVE_TYPE_AC) {
-    return await acfunLive.acfunCmd(up, message, groupQQ)
+    return await acfunLive.acfunCmd(up, message)
   } else if (up.type === LIVE_TYPE_BILIBILI) {
     return await bilibiliLive.bilibiliCmd(up, message)
   }

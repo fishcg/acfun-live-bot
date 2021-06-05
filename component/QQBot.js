@@ -1,7 +1,7 @@
 const CQHttp = require('cqhttp')
 const { qqBot } = require('../config')
 
-const QQ = qqBot.botQQ  // self
+const QQ = qqBot.botQQ // self
 
 // 文档地址：https://github.com/cqmoe/cqhttp-node-sdk
 const bot = new CQHttp({
@@ -22,11 +22,11 @@ bot.isAtMe = function (context) {
 /**
  * 获取消息信息（去除 @ 信息后的消息）
  *
- * @param context
+ * @param {String} message
  * @returns {String}
  */
-bot.getMessage = function (context) {
-  return context.message.replace(`[CQ:at,qq=${QQ}] `, '')
+bot.getMessage = function (message) {
+  return message.replace(`[CQ:at,qq=${QQ}] `, '')
 }
 
 console.log(`QQ service is ${qqBot.url}`)
